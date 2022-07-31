@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "autoattack",
-  "version": "${version}",
+  "version": "1.18.x-1.0.0",
   "name": "Auto Attack Mod",
   "description": "Auto attack when cooldown is over by holding left mouse button!",
   "authors": [

@@ -1,0 +1,8 @@
+{
+  "message.enabled": "%s enabled",
+  "message.disabled": "%s disabled",
+
+  "key.category.autoattack": "Auto Attack",
+  "key.autoattack.settings": "Open Settings",
+  "key.autoattack.enable": "Toggle Enabled"
+}
