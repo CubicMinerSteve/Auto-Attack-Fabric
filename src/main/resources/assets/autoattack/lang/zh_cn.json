@@ -1,0 +1,9 @@
+{
+  "message.enabled": "已启用 %s 自动攻击",
+  "message.disabled": "已禁用 %s 自动攻击",
+  "message.distance.in": "目标距离你 %s 格",
+  "message.distance.out": "无法攻击当前目标",
+
+  "key.category.autoattack": "Auto Attack",
+  "key.autoattack.enable": "自动攻击切换"
+}

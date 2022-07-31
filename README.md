@@ -1,5 +1,8 @@
 # Auto Attack Mod for Fabric
 
+## Experimental Branch
+This branch is an experimental one for 1.18.x. Added "Show Target Distance" feature for test.
+
 ## Warning
 This mod will be detected by anti-cheat plugins like Vulcan, AAC and so on, which might result in punishments. Use it at your own risk!
 
