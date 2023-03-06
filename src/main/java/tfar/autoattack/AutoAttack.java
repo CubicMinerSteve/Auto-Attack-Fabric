@@ -1,35 +1,71 @@
 package tfar.autoattack;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Box;
-
 import java.util.List;
 
-public class AutoAttack implements ClientModInitializer {
+import org.lwjgl.glfw.GLFW;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.Box;
+
+public class AutoAttack implements ClientModInitializer
+{
+	public static final String MOD_ID = "autoattack";
+	public static final String MOD_NAME = "AutoAttack";
+	public static final String CONFIG_FILE_NAME = AutoAttack.MOD_ID+".json";
+	private KeyBinding keyToggleEnabled;
+	
 	@Override
-	public void onInitializeClient() {
-		ClientTickCallback.EVENT.register(mc -> {
-			if (mc.options.keyAttack.isPressed() && mc.player != null
-							&& mc.player.getAttackCooldownProgress(0) >= 1) {
-				if (mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.ENTITY) {
-					Entity entity = ((EntityHitResult)mc.crosshairTarget).getEntity();
-					if (entity.isAlive() && entity.isAttackable()) {
-						mc.interactionManager.attackEntity(mc.player, entity);
-					}
+	public void onInitializeClient() 
+	{
+		ConfigManager.init();
+		keyToggleEnabled = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.autoattack.enable", 	// The translation key of the keybinding's name
+				InputUtil.Type.KEYSYM, 		// The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+				GLFW.GLFW_KEY_BACKSLASH,	// The keycode of the key
+				"key.category.autoattack" 	// The translation key of the keybinding's category.
+		));
+		ClientTickEvents.END_CLIENT_TICK.register(this::tick);
+	}
+	public void tick(MinecraftClient client) 
+	{
+		if (keyToggleEnabled.wasPressed())
+		{
+			if (client.player != null)
+			{
+				if (ConfigManager.getConfig().enabled)
+				{
+					ConfigManager.getConfig().enabled = false;
+					client.player.sendMessage(new TranslatableText("message.disabled", MOD_NAME).formatted(Formatting.RED), true);
+				}
+				else 
+				{
+					ConfigManager.getConfig().enabled = true;
+					client.player.sendMessage(new TranslatableText("message.enabled", MOD_NAME).formatted(Formatting.GREEN), true);
 				}
 			}
-			if (mc.options.advancedItemTooltips && mc.world != null && mc.world.getTime() % 15 == 0) {
-				List<Entity> entityList = mc.world.getEntities(mc.player,new Box(mc.player.getBlockPos().add(-6,-6,-6),mc.player.getBlockPos().add(6,6,6)));
-				entityList.forEach(entity -> {
-					if (entity.isAttackable())
-					mc.interactionManager.attackEntity(mc.player, entity);
-				});
+		}
+		if (ConfigManager.getConfig().enabled)
+		{
+			if (client.options.keyAttack.isPressed() && client.player != null && client.player.getAttackCooldownProgress(0) >= 1) 
+			{
+				if (client.world != null) {
+					List<Entity> entityList = client.world.getOtherEntities(client.player, new Box(client.player.getBlockPos().add(-15, -15, -15), client.player.getBlockPos().add(15, 15, 15)));
+					entityList.forEach(entity -> {
+						if (entity instanceof PlayerEntity) {
+							client.interactionManager.attackEntity(client.player, entity);
+						}
+					});
+				}
 			}
-		});
+		}
 	}
 }

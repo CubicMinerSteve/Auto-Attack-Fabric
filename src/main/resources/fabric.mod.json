@@ -1,37 +1,36 @@
 {
-  "schemaVersion": 1,
-  "id": "modid",
-  "version": "${version}",
-
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
-  "authors": [
-    "Tfarecnim"
-  ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
-
-  "license": "CC0-1.0",
-
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-    ],
-    "client": [
-      "tfar.autoattack.AutoAttack"
-    ]
-  },
-  "mixins": [
-    "autoattack.mixins.json"
-  ],
-
-  "depends": {
-    "fabricloader": ">=0.7.2",
-    "fabric": "*"
-  },
-  "suggests": {
-    "flamingo": "*"
-  }
+	"schemaVersion": 1,
+	"id": "autoattack",
+	"version": "${version}",
+	"name": "Auto Attack Fabric Mod",
+	"description": "Auto attack when cooldown is over by holding left mouse button!",
+	"authors": [
+		"Tfarecnim , WaftingScent Mod Continuation Project"
+	],
+	"contact": {
+		"homepage": "Coming soon!",
+		"issues": "Not available... :/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/autoattack/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+		],
+		"client": [
+			"tfar.autoattack.AutoAttack"
+		]
+	},
+	"mixins": [
+		"autoattack.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.12.0",
+		"fabric": "*",
+		"minecraft": "1.16.x"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
 }
