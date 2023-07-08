@@ -5,7 +5,7 @@
   "name": "Auto Attack Mod",
   "description": "Auto attack when cooldown is over by holding left mouse button!",
   "authors": [
-    "Tfarecnim , WaftingScent Mod Continuation Project"
+    "Tfarecnim, CubicMinerSteve"
   ],
   "contact": {
     "homepage": "Coming soon!",
@@ -19,7 +19,7 @@
     "main": [
     ],
     "client": [
-      "tfar.autoattack.AutoAttack"
+      "code.cubicminer.autoattack.AutoAttack"
     ]
   },
   "mixins": [

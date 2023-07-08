@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.2",
-  "package": "tfar.autoattack.mixin",
+  "package": "code.cubicminer.autoattack.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [],
   "client": [],
